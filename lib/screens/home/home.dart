@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/providers/weather_server.dart';
+import 'package:weather_forecast/screens/home/widgets/main_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({ Key? key }) : super(key: key);
@@ -23,9 +24,7 @@ class _HomeState extends State<Home> {
               ),
             );
           default:
-            return Center(
-              child: Text("Acabou"),
-            );
+            return MainScreen(data: snapshot.data["results"]);
         }
       },
     );
