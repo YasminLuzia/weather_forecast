@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_forecast/models/forecast.dart';
+import 'package:weather_forecast/screens/home/widgets/weather.dart';
 import 'package:weather_forecast/screens/shared/find_icon.dart';
 
 class MainScreen extends StatelessWidget {
-  final data;
+  final Map data;
+  final int numberOfDays = 7;
+
   const MainScreen({
     Key? key, 
     required this.data 
@@ -14,6 +18,10 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea( child: 
         SingleChildScrollView(
+          padding: EdgeInsets.only(
+            top: 80,
+            bottom:35
+          ),
           child: Container(
             width: MediaQuery.of(context).size.width,
             child: Column(
@@ -53,7 +61,19 @@ class MainScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  this.data["wind_speedy"]
+                  this.data["wind_speedy"],
+                  style: Theme.of(context).textTheme.subtitle2,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  height: 60,
+                  child: ListView.builder(
+                    itemBuilder: builder,
+                    itemCount: numberOfDays,
+                    scrollDirection: Axis.horizontal,
+                  ),
                 )
               ],
             ),
@@ -61,5 +81,15 @@ class MainScreen extends StatelessWidget {
         )
       )
     );
+  }
+
+  Widget builder(BuildContext context, int index) {
+    Forecast forecast = Forecast(
+      dayOfWeek: this.data["forecast"][index]["weekday"], 
+      icon: findIcon(this.data["forecast"][index]["condition"]), 
+      degrees: this.data["forecast"][index]["max"]
+    );
+
+    return Weather(forecast);
   }
 }
