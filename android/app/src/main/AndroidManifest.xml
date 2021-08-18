@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.yasminluzia.weather_forecast">
    <application
-        android:label="weather_forecast"
+        android:label="Weather Forecast"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
